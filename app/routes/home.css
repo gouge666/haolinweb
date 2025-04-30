@@ -1,0 +1,162 @@
+.loginPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background:
+    -webkit-linear-gradient(290deg, #f4f80221, #fff),
+    -webkit-linear-gradient(225deg, #3cee331c, #fff,#fff);
+    background-blend-mode: multiply;
+}
+.change {
+    font-size: 28rpx;
+    color: blue;
+    text-decoration: underline;
+    width: 640px;
+    cursor: pointer;
+    text-align: left;
+    /* background-color: #3ba662; */
+  }
+.loginArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 500px;
+    margin: 0;
+}
+.texts {
+    /* background-color: bisque; */
+    width: 640px;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 130px;
+    letter-spacing: 4px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.line {
+    width: 640px;
+    height: 4rpx;
+    background-color: #ccc;
+    margin: 15rpx 0;
+}
+.phoneInput,.verifyCodeInput {
+    width: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* background-color: aquamarine; */
+    margin: 20rpx 0;
+}
+.inputArea {
+    display: flex;
+    align-items: center;
+}
+.phoneInputPrefix {
+    /* background-color: #cba; */
+    font-size: 26px;
+    font-weight: 500;
+}
+.split {
+    margin: 0 10rpx;
+    color: #ccc;
+}
+.phoneInputBox {
+    font-size: 30px;
+    width: 560px;
+    height: 50px;
+    margin: 10px 0;
+    padding: 0 20px;
+    border: none;  /* 默认边框 */
+    transition: all 0.2s;
+    -webkit-appearance: none; /* 清除iOS默认样式 */
+    border-radius: 4px;       /* 统一圆角 */
+    border-bottom: 1px solid #cccc;
+}
+.phoneInputBox:focus {
+    outline: none;
+    border-color: transparent; /* 透明化边框 */
+    border-bottom:  2px solid #3ba66240; 
+}
+.getCode {
+    width: 200px;
+    color: #3ba662;
+    font-size: 26px;
+    cursor: pointer;
+}
+.loginBtn {
+    width: 620px;
+    height: 100px;
+    border-radius: 20px;
+    background-color: #3ba662;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+    margin-top: 100px;
+    cursor: pointer;
+}
+
+
+/* 仓库 */
+.cangkuPage,.zhanzhangPage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+.left {
+    width: 100px;
+    height: 100vh;
+    background-color: #fff;
+    flex-shrink: 0;
+}
+.tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+
+    img {
+        width: 50px;
+        height: 50px;
+    }
+    margin: 10px 0;
+    cursor: pointer;
+}
+.tab-item-active {
+    font-weight: 600;
+    box-shadow: 0 0 70px rgba(118, 160, 40, 0.505);
+}
+.tab-item-active::after {
+    content: "";
+    width: 80px;
+    height: 10px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    background-color: yellow;
+}
+.right {
+    width: calc(100vw - 100px);
+    align-items: start;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding-top: 0px;
+    transform: scale(.8) translateY(-50px);
+    margin-top: 0;
+}
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 5px 0;
+}
