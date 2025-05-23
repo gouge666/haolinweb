@@ -186,7 +186,12 @@ export default function Home() {
       }else if(result.message == "用户不存在"){
         alert("用户不存在")
         setIsLogining(false)
-      }else {
+      }else if(result.success == false){
+        alert(result.message)
+        setIsLogining(false)
+        return
+      }
+        else {
         // 1.存储用户信息
         setUserInfo(result.data)
         console.log("登录成功，用户信息",result.data)
@@ -196,6 +201,7 @@ export default function Home() {
           alert("站长登录成功")
           setPage("zhanzhangPage")
           await getCategory()
+          assign_task_not_evaluate_list()
         }else if(result.data.role.includes(5)){
           alert("仓库管理员登录成功")
           setPage("cangkuPage")
@@ -396,7 +402,7 @@ export default function Home() {
     }
   }
   // 仓库管理员直接上架货物
-  const goods_zhijie_put_on_sale = async(categoryId: any,tagName: any,title: any,urls: any,detail: any,depreciationRate: any,price: any,size: any,shippingFee: any,comment: any)=>{
+  const goods_zhijie_put_on_sale = async(categoryId: any,tagName: any,title: any,urls: any,detail: any,depreciationRate: any,price: any,size: any,shippingFee: any,comment: any,count: any)=>{
     try {
       // 用 fetch 发送 POST 请求（无需手动设置 Content-Type）
       const response = await fetch(`${url}goods/warehouse/direct/put_on_sale`, {
@@ -416,6 +422,8 @@ export default function Home() {
           size: parseInt(size)+1,
           shippingFee,
           comment,
+          count,
+          multiFlag: 1
         })
       });
 
@@ -917,6 +925,7 @@ export default function Home() {
       await goods_list()
     }
   }
+  const [zhijieCount,setZhijieCount] = useState<any>()
   const handlecangkuZhijieShangjiaOk = async ()=>{
     if(shangjiaing){
       return
@@ -957,10 +966,14 @@ export default function Home() {
       alert("请输入物品评论")
       return
     }
+    if(!zhijieCount){
+      alert("请输入物品数量")
+      return
+    }
     // 
     const tagName = getTagName(categoryId)
     
-    const res = await goods_zhijie_put_on_sale(categoryId,tagName,title,urls.join("gousk666"),detail,depreciationRate,price,size,shippingFee,shangjiaComment)
+    const res = await goods_zhijie_put_on_sale(categoryId,tagName,title,urls.join("gousk666"),detail,depreciationRate,price,size,shippingFee,shangjiaComment,zhijieCount)
     if(res.success){
       message.success("上架成功")
       setIscangkuZhijieShangjiaModalOpen(false)
@@ -2454,6 +2467,7 @@ export default function Home() {
                       }}
                       format="YYYY-MM-DD HH:mm:ss"
                       onChange={(e)=>{handleChangeDate(e)}}
+                      style={{width: '400px'}}
                     />
                   </div>
                   <div className="row" style={{margin: '0 10px'}}>
@@ -2612,13 +2626,13 @@ export default function Home() {
                 </div>
                 {/* 输入评论 */}
                   <div className="row">
-                  <div style={{width: '3em',flexShrink: 0}}>标题：</div>
+                  <div style={{width: '3em',flexShrink: 0}}>评论：</div>
                   <Input placeholder="请输入商品评论" value={shangjiaComment} onChange={(e)=>{setShangjiaComment(e.target.value)}}/>
                 </div>
                 {/* 输入描述 */}
                 <div className="row">
                   <div style={{width: '3em',flexShrink: 0}}>描述：</div>
-                  <Input placeholder="请输入商品描述" value={detail} onChange={(e)=>{setDetail(e.target.value)}}/>
+                  <Input.TextArea placeholder="请输入商品描述" value={detail} onChange={(e)=>{setDetail(e.target.value)}}/>
                 </div>
                 {/* 选择折旧率 */}
                 <div className="row">
@@ -2635,6 +2649,11 @@ export default function Home() {
                 <div className="row">
                   <div style={{width: '3em',flexShrink: 0}}>价格：</div>
                   <InputNumber min={0.01} style={{width: '300px'}} placeholder="请输入商品价格" value={price} onChange={(e)=>{setPrice(e)}}/>
+                </div>
+                {/* 输入数量 */}
+                <div className="row">
+                  <div style={{width: '3em',flexShrink: 0}}>数量：</div>
+                  <InputNumber min={1} step={1} style={{width: '300px'}} placeholder="请输入商品数量" value={zhijieCount} onChange={(e)=>{setZhijieCount(e)}}/>
                 </div>
                 {/* 选择型号 */}
                 <div className="row">
